@@ -4,12 +4,16 @@ import { Map, Marker, Popup, TileLayer } from "react-leaflet"
 import L from "leaflet"
 import "leaflet/dist/leaflet.css"
 import { getApiURI } from "../helpers"
-//@ts-ignore
-delete L.Icon.Default.prototype._getIconUrl
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png"),
-  iconUrl: require("leaflet/dist/images/marker-icon.png"),
-  shadowUrl: require("leaflet/dist/images/marker-shadow.png")
+
+var icon = L.icon({
+  iconUrl: require("../img/leaf-red.png"),
+  shadowUrl: require("../img/leaf-shadow.png"),
+
+  iconSize: [38, 95], // size of the icon
+  shadowSize: [50, 64], // size of the shadow
+  iconAnchor: [22, 94], // point of the icon which will correspond to marker's location
+  shadowAnchor: [4, 62], // the same for the shadow
+  popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor
 })
 
 function SchoolMap() {
@@ -45,7 +49,7 @@ function SchoolMap() {
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
       />
       {data.map((d: any) => (
-        <Marker position={[d.lat, d.lng]}>
+        <Marker position={[d.lat, d.lng]} icon={icon}>
           <Popup>
             <b>{d.nazev}</b>
           </Popup>
