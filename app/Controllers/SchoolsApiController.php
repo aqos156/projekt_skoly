@@ -63,6 +63,14 @@ class SchoolsApiController extends BaseController
 
   public function createPocet()
   {
+
+    $session = \Config\Services::session();
+
+    $user = $session->get("user");
+    if (!$user) {
+      return $this->respond(["errors" => ["login" => "Musíte bvýt příhlášen k přidání počtu"]]);
+    }
+
     $data = json_decode($this->request->getBody());
 
     $pocet = new PocetModel();
