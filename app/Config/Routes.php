@@ -33,12 +33,15 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
 
+$routes->options('/api/auth/*', 'AuthController::optionsReq');
+$routes->get('/api/auth/user', 'AuthController::getUser');
 $routes->post('/api/auth/login', 'AuthController::login');
 $routes->post('/api/auth/register', 'AuthController::register');
 $routes->post('/api/auth/logout', 'AuthController::logout');
 
 $routes->get('/api/schools/all', 'SchoolsApiController::getAll');
 $routes->post('/api/schools/pocet', 'SchoolsApiController::createPocet');
+$routes->post('/api/schools/skola', 'SchoolsApiController::createSkola');
 
 $routes->get('/api/schools', 'SchoolsApiController::get');
 

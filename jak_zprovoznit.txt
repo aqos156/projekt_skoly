@@ -1,0 +1,4 @@
+1. pomocí composeru nainstalovat potřebné knihovny `compose install`
+2. Upravit vhosts pro apache tak, aby aplikace byla pod nějakou doménou (test.l)
+3. Upravit v app/config/App.php cookie url, aby seděla s vhostem
+4. Mělo by fungovat

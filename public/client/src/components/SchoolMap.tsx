@@ -43,7 +43,7 @@ function SchoolMap() {
       zoom={9}
       // @ts-ignore
       ref={map}
-      style={{ height: "calc(100% - 54px)", width: "100%" }}>
+      style={{ height: "calc(100vh - 54px)", width: "100vw" }}>
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

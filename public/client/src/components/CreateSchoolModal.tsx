@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form"
 import { ClipLoader } from "react-spinners"
 import { customError, customSuccess, getApiURI } from "../helpers"
 
-function CreateYearModal({
+function CreateSchoolModal({
   show,
   onHide
 }: {
@@ -19,15 +19,16 @@ function CreateYearModal({
   const { register, handleSubmit, watch, errors } = useForm()
   const onSubmit = (data: any) => {
     setSending(true)
-    Axios(getApiURI("/schools/pocet"), {
+    Axios(getApiURI("/schools/skola"), {
       method: "post",
       withCredentials: true,
       data
     })
       .then((data) => {
         setSending(false)
+        console.log(data)
         if (data.data === 1) {
-          customSuccess("Záznam roku byl vytvořen úspěšně.")
+          customSuccess("Škola byla vytvořen úspěšně.")
         } else {
           if (data.data?.errors) {
             for (let o of Object.values(data.data.errors)) {
@@ -70,7 +71,7 @@ function CreateYearModal({
     <Modal show={show} onHide={onHide} size="lg">
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Modal.Header closeButton>
-          <Modal.Title>Přidat rok</Modal.Title>
+          <Modal.Title>Přidat školu</Modal.Title>
         </Modal.Header>
         {isLoading ? (
           <Modal.Body>
@@ -83,30 +84,32 @@ function CreateYearModal({
             <Row>
               <Col>
                 <Form.Group>
-                  <Form.Label>Rok</Form.Label>
+                  <Form.Label>Škola</Form.Label>
                   <Form.Control
-                    min={0}
-                    placeholder="Rok"
+                    placeholder="Škola"
                     ref={register({ required: true })}
-                    name="rok"
+                    name="nazev"
                   />
-                  {errors.exampleRequired && (
-                    <span>This field is required</span>
-                  )}
                 </Form.Group>
               </Col>
               <Col>
                 <Form.Group>
-                  <Form.Label>Počet</Form.Label>
+                  <Form.Label>Lat</Form.Label>
                   <Form.Control
-                    min={0}
-                    placeholder="Počet"
+                    placeholder="Lat"
                     ref={register({ required: true })}
-                    name="pocet"
+                    name="geo-lat"
                   />
-                  {errors.exampleRequired && (
-                    <span>This field is required</span>
-                  )}
+                </Form.Group>
+              </Col>
+              <Col>
+                <Form.Group>
+                  <Form.Label>Lng</Form.Label>
+                  <Form.Control
+                    placeholder="Lng"
+                    ref={register({ required: true })}
+                    name="geo-long"
+                  />
                 </Form.Group>
               </Col>
             </Row>
@@ -121,33 +124,6 @@ function CreateYearModal({
                   <option value={key}>{data.mesto[key]}</option>
                 ))}
               </Form.Control>
-              {errors.exampleRequired && <span>This field is required</span>}
-            </Form.Group>
-            <Form.Group>
-              <Form.Label>Škola</Form.Label>
-              <Form.Control
-                as="select"
-                defaultValue="Škola..."
-                name="skola"
-                ref={register({ required: true })}>
-                {Object.keys(data.skola).map((key) => (
-                  <option value={key}>{data.skola[key]}</option>
-                ))}
-              </Form.Control>
-              {errors.exampleRequired && <span>This field is required</span>}
-            </Form.Group>
-            <Form.Group>
-              <Form.Label>Obor</Form.Label>
-              <Form.Control
-                as="select"
-                defaultValue="Obor..."
-                name="obor"
-                ref={register({ required: true })}>
-                {Object.keys(data.obor).map((key) => (
-                  <option value={key}>{data.obor[key]}</option>
-                ))}
-              </Form.Control>
-              {errors.exampleRequired && <span>This field is required</span>}
             </Form.Group>
           </Modal.Body>
         )}
@@ -164,4 +140,4 @@ function CreateYearModal({
   )
 }
 
-export default CreateYearModal
+export default CreateSchoolModal

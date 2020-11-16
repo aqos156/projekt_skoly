@@ -9,6 +9,20 @@ class SkolaModel extends Model
   protected $table      = 'skola';
   protected $primaryKey = 'id';
 
+  protected $useSoftDeletes = false;
+
+  protected $allowedFields = ['nazev', 'mesto', "geo-lat", "geo-long"];
+
+  protected $validationMessages = [];
+  protected $skipValidation     = false;
+
+  protected $validationRules    = [
+    'nazev'     => 'required',
+    'mesto'     => 'required|numeric',
+    'geo-lat'        => 'required|numeric',
+    'geo-long'        => 'required|numeric'
+  ];
+
   public function getIdNames()
   {
     $data = $this->findAll();

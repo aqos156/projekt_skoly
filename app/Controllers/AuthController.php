@@ -25,8 +25,14 @@ class AuthController extends BaseController
     }
   }
 
+  public function optionsReq()
+  {
+    return $this->respond();
+  }
+
   public function login()
   {
+
     $user = new UserModel();
 
     $data = json_decode($this->request->getBody());
@@ -39,6 +45,19 @@ class AuthController extends BaseController
     unset($user["password"]);
 
     return $this->respond(["user" => $user]);
+  }
+
+  public function getUser()
+  {
+    $session = \Config\Services::session();
+
+    $user = $session->get("user");
+    if ($user) {
+      unset($user["password"]);
+      return $this->respond(["user" => $user]);
+    } else {
+      return $this->respond(["user" => null]);
+    }
   }
 
   public function logout()

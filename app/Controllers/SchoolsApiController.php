@@ -78,10 +78,32 @@ class SchoolsApiController extends BaseController
     $pocet->insert($data);
 
     if ($pocet->errors()) {
-      return $this->respond($pocet->errors(), 400);
+      return $this->respond(["errors" => $pocet->errors()]);
     }
 
-    return $this->respondCreated(["status" => "success"]);
+    return $this->respondCreated(1);
+  }
+
+  public function createSkola()
+  {
+    $session = \Config\Services::session();
+
+    $user = $session->get("user");
+    if (!$user) {
+      return $this->respond(["errors" => ["login" => "Musíte bvýt příhlášen k přidání počtu"]]);
+    }
+
+    $data = json_decode($this->request->getBody());
+
+    $skola = new SkolaModel();
+
+    $skola->insert($data);
+
+    if ($skola->errors()) {
+      return $this->respond(["errors" => $skola->errors()]);
+    }
+
+    return $this->respondCreated(1);
   }
 
   //--------------------------------------------------------------------

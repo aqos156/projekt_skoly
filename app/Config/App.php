@@ -207,7 +207,7 @@ class App extends BaseConfig
 	|
 	*/
 	public $cookiePrefix   = '';
-	public $cookieDomain   = '';
+	public $cookieDomain   = ".test.l";
 	public $cookiePath     = '/';
 	public $cookieSecure   = false;
 	public $cookieHTTPOnly = false;

@@ -3,6 +3,9 @@ import { Button, Form, Nav, Navbar } from "react-bootstrap"
 import CreateYearModal from "./CreateYearModal"
 
 import "bootstrap/dist/js/bootstrap"
+import { useUser } from "../redux/hooks"
+import { Link } from "react-router-dom"
+import CreateSchoolModal from "./CreateSchoolModal"
 
 function Header({
   reloadData,
@@ -14,6 +17,8 @@ function Header({
   showMap: boolean
 }) {
   const [show, setShow] = useState(false)
+  const [showSchoolModal, setShowSchoolModal] = useState(false)
+  const user = useUser()
 
   return (
     <>
@@ -31,15 +36,43 @@ function Header({
           </Nav.Item>
         </Nav>
         <div className="justify-content-end">
-          <Button variant="success" onClick={() => setShow(true)}>
-            Vytvořit rok
-          </Button>
+          {user ? (
+            <>
+              <Button variant="outline-success" onClick={() => setShow(true)}>
+                Vytvořit rok
+              </Button>
+              <Button
+                variant="outline-success"
+                onClick={() => setShowSchoolModal(true)}>
+                Vytvořit školu
+              </Button>
+              <Link to="/logout" className="btn btn-outline-danger ml-1">
+                Odhlásit se (<b>{user.name}</b>)
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link to="/login" className="btn btn-success">
+                Přihlásit se
+              </Link>
+              <Link to="/register" className="btn btn-outline-success">
+                Registrovat se
+              </Link>
+            </>
+          )}
         </div>
       </Navbar>
       <CreateYearModal
         show={show}
         onHide={() => {
           setShow(false)
+          reloadData()
+        }}
+      />
+      <CreateSchoolModal
+        show={showSchoolModal}
+        onHide={() => {
+          setShowSchoolModal(false)
           reloadData()
         }}
       />

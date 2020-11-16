@@ -7,8 +7,8 @@
   | make sure they don't make it to production. And save us hours of
   | painful debugging.
  */
-error_reporting(-1);
-ini_set('display_errors', '0');
+error_reporting(4);
+ini_set('display_errors', '1');
 
 /*
   |--------------------------------------------------------------------------
@@ -18,7 +18,7 @@ ini_set('display_errors', '0');
   | backtraces along with the other error information. If you would
   | prefer to not see this, set this value to false.
  */
-defined('SHOW_DEBUG_BACKTRACE') || define('SHOW_DEBUG_BACKTRACE', false);
+defined('SHOW_DEBUG_BACKTRACE') || define('SHOW_DEBUG_BACKTRACE', true);
 
 /*
   |--------------------------------------------------------------------------
@@ -29,4 +29,5 @@ defined('SHOW_DEBUG_BACKTRACE') || define('SHOW_DEBUG_BACKTRACE', false);
   | items. It can always be used within your own application too.
  */
 
-defined('CI_DEBUG') || define('CI_DEBUG', false);
+defined('CI_DEBUG') || define('CI_DEBUG', true);
+define('ENVIRONMENT', 'development');
